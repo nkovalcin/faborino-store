@@ -32,6 +32,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductsAPI, type ProductWithCategory } from '@/lib/api/products';
 import { useCartStore } from '@/stores/cart';
+import { getLocalizedProductName, getLocalizedProductDescription, type SupportedLocale } from '@/lib/utils/multilingual';
 
 interface ProductSpec {
   key: string;
@@ -118,7 +119,7 @@ export default function ProductPage() {
   const breadcrumbs = [
     { label: 'Domov', href: `/${locale}` },
     { label: 'Kategórie', href: `/${locale}/kategorie` },
-    { label: typeof product.name === 'string' ? product.name : JSON.stringify(product.name), href: `/${locale}/produkty/${productId}` }
+    { label: getLocalizedProductName(product, locale as SupportedLocale), href: `/${locale}/produkty/${productId}` }
   ];
 
   // Format product specifications from database data
@@ -176,7 +177,7 @@ export default function ProductPage() {
             <div className="relative">
               <Image
                 src={product.images?.[selectedImage] || '/images/placeholder-product.jpg'}
-                alt={typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}
+                alt={getLocalizedProductName(product, locale as SupportedLocale)}
                 width={800}
                 height={800}
                 className="w-full aspect-square object-cover rounded-xl shadow-lg"
@@ -204,7 +205,7 @@ export default function ProductPage() {
                 >
                   <Image
                     src={image}
-                    alt={`${product.name} ${index + 1}`}
+                    alt={`${getLocalizedProductName(product, locale as SupportedLocale)} ${index + 1}`}
                     width={120}
                     height={120}
                     className="w-full aspect-square object-cover"
@@ -217,8 +218,8 @@ export default function ProductPage() {
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}</h1>
-              <p className="text-gray-600 mb-4">{typeof product.description === 'string' ? product.description : JSON.stringify(product.description)}</p>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">{getLocalizedProductName(product, locale as SupportedLocale)}</h1>
+              <p className="text-gray-600 mb-4">{getLocalizedProductDescription(product, locale as SupportedLocale)}</p>
               
               {/* Detailed Product Info */}
               <div className="prose prose-sm text-gray-700 mb-6">

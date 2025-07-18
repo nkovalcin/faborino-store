@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ProductsAPI, type ProductWithCategory } from '@/lib/api/products';
+import { getLocalizedProductName, getLocalizedProductDescription, type SupportedLocale } from '@/lib/utils/multilingual';
 
 type SortOption = 'popularity' | 'price_asc' | 'price_desc' | 'name_asc' | 'name_desc' | 'newest';
 
@@ -63,7 +64,7 @@ export default function ProductsPage() {
           <div className="relative overflow-hidden rounded-t-2xl">
             <Image
               src={product.images?.[0] || '/images/placeholder-product.jpg'}
-              alt={typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}
+              alt={getLocalizedProductName(product, locale as SupportedLocale)}
               width={400}
               height={300}
               className="w-full h-64 object-cover image-product group-hover:brightness-110 transition-all duration-300"
@@ -86,11 +87,11 @@ export default function ProductsPage() {
           
           <div className="p-6">
             <h3 className="text-lg font-semibold text-[#3A3A3A] mb-2 group-hover:text-[#D4A574] transition-colors line-clamp-2">
-              {typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}
+              {getLocalizedProductName(product, locale as SupportedLocale)}
             </h3>
             
             <p className="text-[#6B7280] mb-4 line-clamp-2">
-              {typeof product.description === 'string' ? product.description : JSON.stringify(product.description)}
+              {getLocalizedProductDescription(product, locale as SupportedLocale)}
             </p>
             
             <div className="flex items-center mb-4">

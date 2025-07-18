@@ -11,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ProductsAPI, type ProductWithCategory } from '@/lib/api/products';
 import { CategoriesAPI, type CategoryWithProductCount } from '@/lib/api/categories';
+import { getLocalizedProductName, getLocalizedProductDescription, getLocalizedCategoryName, getLocalizedCategoryDescription, type SupportedLocale } from '@/lib/utils/multilingual';
 
 type SortOption = 'popularity' | 'price_asc' | 'price_desc' | 'name_asc' | 'name_desc' | 'newest';
 
@@ -72,7 +73,7 @@ export default function CategoryPage() {
           <div className="relative">
             <Image
               src={product.images?.[0] || '/images/placeholder-product.jpg'}
-              alt={typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}
+              alt={getLocalizedProductName(product, locale as SupportedLocale)}
               width={400}
               height={300}
               className="w-full h-48 object-cover rounded-t-lg group-hover:brightness-110 transition-all duration-300"
@@ -84,11 +85,11 @@ export default function CategoryPage() {
           
           <div className="p-3">
             <h3 className="font-semibold text-sm text-gray-900 mb-2 line-clamp-2 group-hover:text-amber-600 transition-colors">
-              {typeof product.name === 'string' ? product.name : product.name[locale as keyof typeof product.name] || product.name.sk}
+              {getLocalizedProductName(product, locale as SupportedLocale)}
             </h3>
             
             <p className="text-xs text-gray-600 mb-2 line-clamp-2">
-              {typeof product.description === 'string' ? product.description : product.description?.[locale as keyof typeof product.description] || product.description?.sk || ''}
+              {getLocalizedProductDescription(product, locale as SupportedLocale)}
             </p>
             
             <div className="flex items-center mb-2">
@@ -156,7 +157,7 @@ export default function CategoryPage() {
   const breadcrumbs = [
     { label: 'Domov', href: `/${locale}` },
     { label: 'Kategórie', href: `/${locale}/kategorie` },
-    { label: typeof category.name === 'string' ? category.name : category.name[locale as keyof typeof category.name] || category.name.sk, href: `/${locale}/kategorie/${categoryId}` }
+    { label: getLocalizedCategoryName(category, locale as SupportedLocale), href: `/${locale}/kategorie/${categoryId}` }
   ];
 
   return (
@@ -187,10 +188,10 @@ export default function CategoryPage() {
         <div className="container-smart py-8 relative">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-[#3A3A3A] mb-4">
-              {typeof category.name === 'string' ? category.name : category.name[locale as keyof typeof category.name] || category.name.sk}
+              {getLocalizedCategoryName(category, locale as SupportedLocale)}
             </h1>
             <p className="text-lg text-[#6B7280] max-w-3xl mx-auto mb-6">
-              {typeof category.description === 'string' ? category.description : category.description?.[locale as keyof typeof category.description] || category.description?.sk || ''}
+              {getLocalizedCategoryDescription(category, locale as SupportedLocale)}
             </p>
             <Badge className="bg-[#D4A574] text-white text-sm px-4 py-2">
               {products.length} produktov

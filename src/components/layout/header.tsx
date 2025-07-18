@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { Menu, X, Search, ShoppingCart, User, Heart, Phone, Mail, MapPin, Truck } from 'lucide-react'
 // import { Button } from '@/components/ui/button'
-import { LanguageSwitcher } from '@/components/ui/language-switcher'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { useCartStore } from '@/stores/cart'
 import { cn } from '@/lib/utils'
 
