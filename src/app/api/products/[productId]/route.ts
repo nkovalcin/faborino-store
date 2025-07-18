@@ -16,16 +16,6 @@ export async function GET(
           id,
           name,
           slug
-        ),
-        reviews (
-          id,
-          rating,
-          title,
-          comment,
-          customer_name,
-          verified,
-          helpful,
-          created_at
         )
       `)
       .eq('id', productId)
