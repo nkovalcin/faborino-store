@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Faborino</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #D4A574 0%, #4A6741 100%);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    
+    .container {
+      text-align: center;
+      max-width: 500px;
+      padding: 2rem;
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #D4A574;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    
+    .btn {
+      background: white;
+      color: #D4A574;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .status {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+    
+    .online {
+      background: rgba(76, 175, 80, 0.2);
+    }
+    
+    .offline {
+      background: rgba(244, 67, 54, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">F</div>
+    <h1>Ste offline</h1>
+    <p>Prepáčte, ale momentálne nemáte pripojenie k internetu. Skontrolujte prosím svoje pripojenie a skúste to znova.</p>
+    <button class="btn" onclick="window.location.reload()">Skúsiť znova</button>
+    
+    <div class="status offline" id="status">
+      <strong>Stav:</strong> Offline
+    </div>
+  </div>
+
+  <script>
+    // Monitor connection status
+    function updateStatus() {
+      const statusEl = document.getElementById('status')
+      if (navigator.onLine) {
+        statusEl.innerHTML = '<strong>Stav:</strong> Online'
+        statusEl.className = 'status online'
+      } else {
+        statusEl.innerHTML = '<strong>Stav:</strong> Offline'
+        statusEl.className = 'status offline'
+      }
+    }
+    
+    // Listen for connection changes
+    window.addEventListener('online', updateStatus)
+    window.addEventListener('offline', updateStatus)
+    
+    // Check initial status
+    updateStatus()
+    
+    // Auto-reload when back online
+    window.addEventListener('online', () => {
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+    })
+  </script>
+</body>
+</html>
