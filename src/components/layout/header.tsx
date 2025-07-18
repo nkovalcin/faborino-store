@@ -126,10 +126,10 @@ export function Header() {
               )}
             </button>
 
-            {/* User account */}
-            <button className="p-2 hover:bg-primary/10 rounded-full transition-colors">
+            {/* User account / Admin */}
+            <Link href={`/${locale}/admin`} className="p-2 hover:bg-primary/10 rounded-full transition-colors">
               <User className="w-5 h-5 text-charcoal" />
-            </button>
+            </Link>
 
             {/* Mobile menu button */}
             <button

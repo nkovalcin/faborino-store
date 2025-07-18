@@ -10,25 +10,10 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '20');
     const page = parseInt(searchParams.get('page') || '1');
 
-    // Build query
+    // Build query - simplified for admin panel
     let query = supabaseServer
       .from('orders')
-      .select(`
-        *,
-        order_items (
-          id,
-          product_id,
-          quantity,
-          price,
-          total,
-          products (
-            id,
-            name,
-            images,
-            slug
-          )
-        )
-      `)
+      .select('*', { count: 'exact' })
       .order('created_at', { ascending: false });
 
     // Apply filters
