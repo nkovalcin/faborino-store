@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
           name,
           slug
         )
-      `)
+      `, { count: 'exact' })
       .eq('is_active', true);
 
     // Apply filters
