@@ -217,34 +217,21 @@ export default function CategoryPage() {
   }, [mockProducts, selectedSubcategory, sortBy]);
 
   const ProductCard = ({ product, className = '' }: { product: Product; className?: string }) => (
-    <Card className={`group hover:shadow-lg transition-all duration-300 ${className}`}>
-      <CardContent className="p-0">
-        <div className="relative">
-          <Image
-            src={product.image}
-            alt={product.name}
-            width={400}
-            height={300}
-            className="w-full h-48 object-cover rounded-t-lg"
-          />
-          <Badge className="absolute top-2 right-2 bg-amber-500 text-white text-xs">
-            {product.ageRange}
-          </Badge>
-          
-          {/* Hover overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-t-lg flex items-center justify-center">
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
-              <Button size="sm" variant="outline" className="bg-white/90 hover:bg-white text-xs">
-                <Eye className="w-3 h-3 mr-1" />
-                Náhľad
-              </Button>
-              <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-xs">
-                <ShoppingCart className="w-3 h-3 mr-1" />
-                Kúpiť
-              </Button>
-            </div>
+    <Link href={`/${locale}/produkty/${product.id}`}>
+      <Card className={`group hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer ${className}`}>
+        <CardContent className="p-0">
+          <div className="relative">
+            <Image
+              src={product.image}
+              alt={product.name}
+              width={400}
+              height={300}
+              className="w-full h-48 object-cover rounded-t-lg group-hover:brightness-110 transition-all duration-300"
+            />
+            <Badge className="absolute top-2 right-2 bg-amber-500 text-white text-xs">
+              {product.ageRange}
+            </Badge>
           </div>
-        </div>
         
         <div className="p-3">
           <h3 className="font-semibold text-sm text-gray-900 mb-2 line-clamp-2 group-hover:text-amber-600 transition-colors">
@@ -290,6 +277,7 @@ export default function CategoryPage() {
         </div>
       </CardContent>
     </Card>
+    </Link>
   );
 
   if (!category) {

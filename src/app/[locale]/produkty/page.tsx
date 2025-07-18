@@ -58,7 +58,7 @@ export default function ProductsPage() {
 
   const ProductCard = ({ product, className = '' }: { product: ProductWithCategory; className?: string }) => (
     <Link href={`/${locale}/produkty/${product.id}`}>
-      <Card className={`card-product group cursor-pointer h-full ${className}`}>
+      <Card className={`card-product group cursor-pointer h-full hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ${className}`}>
         <CardContent className="p-0">
           <div className="relative overflow-hidden rounded-t-2xl">
             <Image
@@ -66,7 +66,7 @@ export default function ProductsPage() {
               alt={product.name}
               width={400}
               height={300}
-              className="w-full h-64 object-cover image-product"
+              className="w-full h-64 object-cover image-product group-hover:brightness-110 transition-all duration-300"
             />
             
             <div className="absolute top-4 right-4 flex flex-col gap-2">
@@ -80,13 +80,8 @@ export default function ProductsPage() {
               )}
             </div>
             
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <Button className="btn-primary">
-                <Eye className="w-4 h-4 mr-2" />
-                Zobraziť detail
-              </Button>
-            </div>
+            {/* Smooth hover effect */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all duration-300 rounded-t-2xl"></div>
           </div>
           
           <div className="p-6">
