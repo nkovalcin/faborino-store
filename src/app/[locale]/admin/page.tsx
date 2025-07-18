@@ -149,9 +149,17 @@ export default function AdminPanel() {
       cancelled: 'bg-red-100 text-red-800'
     }
     
+    const statusTranslations = {
+      pending: t('pending'),
+      processing: t('processing'),
+      shipped: t('shipped'),
+      delivered: t('delivered'),
+      cancelled: t('cancelled')
+    }
+    
     return (
       <Badge className={statusColors[status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'}>
-        {t(status as any)}
+        {statusTranslations[status as keyof typeof statusTranslations] || status}
       </Badge>
     )
   }
@@ -290,12 +298,12 @@ export default function AdminPanel() {
                   {orders.slice(0, 5).map((order) => (
                     <div key={order.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div>
-                        <p className="font-medium">{order.customer_name}</p>
-                        <p className="text-sm text-gray-600">{order.customer_email}</p>
+                        <p className="font-medium">{order.customer_name || 'Unknown'}</p>
+                        <p className="text-sm text-gray-600">{order.customer_email || 'N/A'}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium">€{order.total.toFixed(2)}</p>
-                        {getStatusBadge(order.status)}
+                        <p className="font-medium">€{(order.total || 0).toFixed(2)}</p>
+                        {getStatusBadge(order.status || 'pending')}
                       </div>
                     </div>
                   ))}
@@ -345,22 +353,22 @@ export default function AdminPanel() {
                                 <img
                                   className="h-10 w-10 rounded-full object-cover"
                                   src={product.images?.[0] || '/placeholder.jpg'}
-                                  alt={product.name}
+                                  alt={product.name || 'Product'}
                                 />
                               </div>
                               <div className="ml-4">
-                                <div className="text-sm font-medium text-gray-900">{product.name}</div>
+                                <div className="text-sm font-medium text-gray-900">{product.name || 'Unknown Product'}</div>
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {product.category}
+                            {product.category || 'N/A'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            €{product.price.toFixed(2)}
+                            €{(product.price || 0).toFixed(2)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {product.stock}
+                            {product.stock || 0}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                             <Button size="sm" variant="ghost">
@@ -417,19 +425,19 @@ export default function AdminPanel() {
                       {orders.map((order) => (
                         <tr key={order.id}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {new Date(order.created_at).toLocaleDateString()}
+                            {order.created_at ? new Date(order.created_at).toLocaleDateString() : 'N/A'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {order.customer_name}
+                            {order.customer_name || 'Unknown'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {order.customer_email}
+                            {order.customer_email || 'N/A'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            €{order.total.toFixed(2)}
+                            €{(order.total || 0).toFixed(2)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            {getStatusBadge(order.status)}
+                            {getStatusBadge(order.status || 'pending')}
                           </td>
                         </tr>
                       ))}
