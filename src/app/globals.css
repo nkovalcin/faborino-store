@@ -4,6 +4,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Radix UI base styles */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 36 45% 62%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 36 45% 62%;
+    --radius: 0.5rem;
+  }
+}
+
 @layer utilities {
   @keyframes fade-in {
     from {
@@ -412,15 +438,11 @@
     aspect-ratio: 1/1;
   }
   
-  .container-responsive {
-    @apply max-w-none mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16;
-  }
-  
   .container-smart {
     @apply w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16;
   }
   
-  .grid-responsive {
+  .grid-responsive-alt {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-6;
   }
   
@@ -456,7 +478,7 @@
     @apply transition-all duration-200 ease-in-out;
   }
   
-  .hover-lift {
+  .hover-lift-alt {
     @apply hover:transform hover:-translate-y-1 transition-transform duration-200;
   }
   
