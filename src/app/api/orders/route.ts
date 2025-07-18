@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
         shipping_address: orderData.shipping_address,
         billing_address: orderData.billing_address || orderData.shipping_address,
         payment_status: 'pending',
-        stripe_payment_intent_id: orderData.stripe_payment_intent_id,
+        revolut_payment_id: orderData.revolut_payment_id,
         notes: orderData.notes
       }])
       .select()

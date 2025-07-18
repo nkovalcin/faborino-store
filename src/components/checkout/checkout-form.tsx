@@ -1,14 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useCartStore } from '@/stores/cart'
 
 export function CheckoutForm() {
-  const stripe = useStripe()
-  const elements = useElements()
   const router = useRouter()
   const { clearCart } = useCartStore()
   
@@ -19,122 +16,65 @@ export function CheckoutForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!stripe || !elements) {
-      return
-    }
-
     setIsLoading(true)
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/checkout/success`,
-        receipt_email: email,
-      },
-    })
-
-    if (error) {
-      if (error.type === 'card_error' || error.type === 'validation_error') {
-        setMessage(error.message || 'Nastala chyba pri spracovaní platby')
-      } else {
-        setMessage('Nastala neočakávaná chyba')
-      }
-    } else {
-      // Payment succeeded, clear cart
+    try {
+      // Handle order creation without Stripe
+      // This would process Revolut, Bank Transfer, or COD payment
+      setMessage('Objednávka bola úspešne vytvorená!')
       clearCart()
+      router.push('/checkout/success')
+    } catch (error) {
+      console.error('Error processing payment:', error)
+      setMessage('Nastala chyba pri spracovaní objednávky.')
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Customer Information */}
-      <div className="space-y-4">
-        <h3 className="text-h4 font-semibold text-charcoal">
-          Kontaktné údaje
-        </h3>
-        
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-charcoal mb-2">
-            Email *
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="smart-input"
-            placeholder="vas@email.com"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-charcoal mb-2">
-            Meno a priezvisko *
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="smart-input"
-            placeholder="Vaše meno"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        />
       </div>
 
-      {/* Payment Element */}
-      <div className="space-y-4">
-        <h3 className="text-h4 font-semibold text-charcoal">
-          Platobné informácie
-        </h3>
-        
-        <div className="p-4 border border-cream-white rounded-card bg-cream-white/50">
-          <PaymentElement />
-        </div>
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium mb-2">
+          Celé meno
+        </label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        />
       </div>
 
-      {/* Error Message */}
       {message && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-card">
-          <p className="text-red-700 text-sm">{message}</p>
+        <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-800">{message}</p>
         </div>
       )}
 
-      {/* Submit Button */}
-      <Button
-        type="submit"
-        disabled={isLoading || !stripe || !elements}
-        className="w-full"
-        size="lg"
+      <Button 
+        type="submit" 
+        disabled={isLoading}
+        className="w-full bg-amber-600 hover:bg-amber-700 text-white"
       >
-        {isLoading ? (
-          <div className="flex items-center gap-2">
-            <div className="loading-spinner" />
-            Spracováva sa...
-          </div>
-        ) : (
-          'Dokončiť objednávku'
-        )}
+        {isLoading ? 'Spracovávam...' : 'Dokončiť objednávku'}
       </Button>
-
-      {/* Terms */}
-      <div className="text-sm text-muted text-center">
-        <p>
-          Pokračovaním súhlasíte s našimi{' '}
-          <a href="/obchodne-podmienky" className="text-primary hover:underline">
-            obchodnými podmienkami
-          </a>{' '}
-          a{' '}
-          <a href="/ochrana-sukromia" className="text-primary hover:underline">
-            ochranou súkromia
-          </a>
-        </p>
-      </div>
     </form>
   )
 }

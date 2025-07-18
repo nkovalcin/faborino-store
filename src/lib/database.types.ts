@@ -142,7 +142,7 @@ export interface Database {
           shipping_address: Json
           billing_address: Json
           payment_status: string
-          stripe_payment_intent_id?: string
+          revolut_payment_id?: string
           notes?: string
           created_at: string
           updated_at: string
@@ -158,7 +158,7 @@ export interface Database {
           shipping_address: Json
           billing_address: Json
           payment_status: string
-          stripe_payment_intent_id?: string
+          revolut_payment_id?: string
           notes?: string
           created_at?: string
           updated_at?: string
@@ -174,7 +174,7 @@ export interface Database {
           shipping_address?: Json
           billing_address?: Json
           payment_status?: string
-          stripe_payment_intent_id?: string
+          revolut_payment_id?: string
           notes?: string
           created_at?: string
           updated_at?: string
