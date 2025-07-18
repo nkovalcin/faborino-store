@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase';
 
 export async function GET(
   request: NextRequest,
@@ -8,7 +8,7 @@ export async function GET(
   try {
     const { productId } = params;
 
-    const { data: product, error } = await supabase
+    const { data: product, error } = await supabaseServer
       .from('products')
       .select(`
         *,
@@ -48,7 +48,7 @@ export async function GET(
     }
 
     // Get related products from same category
-    const { data: relatedProducts } = await supabase
+    const { data: relatedProducts } = await supabaseServer
       .from('products')
       .select('id, name, price, images, slug, age_min, age_max')
       .eq('category_id', product.category_id)
