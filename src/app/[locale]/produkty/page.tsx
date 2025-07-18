@@ -62,8 +62,8 @@ export default function ProductsPage() {
         <CardContent className="p-0">
           <div className="relative overflow-hidden rounded-t-2xl">
             <Image
-              src={product.images[0]}
-              alt={product.name}
+              src={product.images?.[0] || '/images/placeholder-product.jpg'}
+              alt={typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}
               width={400}
               height={300}
               className="w-full h-64 object-cover image-product group-hover:brightness-110 transition-all duration-300"

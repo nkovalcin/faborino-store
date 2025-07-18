@@ -71,7 +71,7 @@ export default function CategoryPage() {
         <CardContent className="p-0">
           <div className="relative">
             <Image
-              src={product.images[0] || '/images/placeholder-product.jpg'}
+              src={product.images?.[0] || '/images/placeholder-product.jpg'}
               alt={typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}
               width={400}
               height={300}

@@ -61,7 +61,7 @@ export class ProductsAPI {
    * Get a single product by ID
    */
   static async getProduct(productId: string): Promise<{
-    product: ProductWithCategory & { reviews: any[] };
+    product: ProductWithCategory;
     relatedProducts: Product[];
   }> {
     const response = await fetch(`/api/products/${productId}`, {

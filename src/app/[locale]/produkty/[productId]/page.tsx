@@ -56,7 +56,7 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       try {
         const productData = await ProductsAPI.getProduct(productId);
-        setProduct(productData);
+        setProduct(productData.product);
       } catch (error) {
         console.error('Error fetching product:', error);
       } finally {
@@ -175,8 +175,8 @@ export default function ProductPage() {
           <div className="space-y-4">
             <div className="relative">
               <Image
-                src={product.images[selectedImage]}
-                alt={product.name}
+                src={product.images?.[selectedImage] || '/images/placeholder-product.jpg'}
+                alt={typeof product.name === 'string' ? product.name : JSON.stringify(product.name)}
                 width={800}
                 height={800}
                 className="w-full aspect-square object-cover rounded-xl shadow-lg"
@@ -194,7 +194,7 @@ export default function ProductPage() {
             
             {/* Image thumbnails */}
             <div className="grid grid-cols-4 gap-3">
-              {product.images.map((image: string, index: number) => (
+              {product.images?.map((image: string, index: number) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
