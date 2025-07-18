@@ -8,6 +8,13 @@
     "about": "Über uns",
     "contact": "Kontakt"
   },
+  "header": {
+    "shipping": "Versand nach SK/CZ/DE/FR",
+    "shippingShort": "EU Versand",
+    "phone": "+421 123 456 789",
+    "support": "Support",
+    "advisor": "Berater"
+  },
   "hero": {
     "title": "Montessori Möbel für Ihre Kinder",
     "subtitle": "Entdecken Sie unsere Auswahl an hochwertigen Kindermöbeln nach der Montessori-Methode",

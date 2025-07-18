@@ -8,6 +8,13 @@
     "about": "About",
     "contact": "Contact"
   },
+  "header": {
+    "shipping": "Shipping to SK/CZ/DE/FR",
+    "shippingShort": "EU Shipping",
+    "phone": "+421 123 456 789",
+    "support": "Support",
+    "advisor": "Advisor"
+  },
   "hero": {
     "title": "Montessori Furniture for Your Children",
     "subtitle": "Discover our selection of high-quality children's furniture inspired by the Montessori method",

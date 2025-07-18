@@ -15,6 +15,8 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const t = useTranslations('navigation')
   const tProducts = useTranslations('products')
+  const tCommon = useTranslations('common')
+  const tHeader = useTranslations('header')
   const locale = useLocale()
   const pathname = usePathname()
   const { getItemCount, toggleCart } = useCartStore()
@@ -24,7 +26,7 @@ export function Header() {
     { name: t('home'), href: `/${locale}` },
     { name: t('categories'), href: `/${locale}/kategorie` },
     { name: t('products'), href: `/${locale}/produkty` },
-    { name: 'Poradca', href: `/${locale}/poradca` },
+    { name: tHeader('advisor'), href: `/${locale}/poradca` },
     { name: t('about'), href: `/${locale}/o-nas` },
     { name: t('contact'), href: `/${locale}/kontakt` },
   ]
@@ -41,13 +43,13 @@ export function Header() {
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
                 <Truck className="w-4 h-4" />
-                <span className="hidden sm:inline">Doprava do SK/CZ/DE/FR</span>
-                <span className="sm:hidden">Doprava EU</span>
+                <span className="hidden sm:inline">{tHeader('shipping')}</span>
+                <span className="sm:hidden">{tHeader('shippingShort')}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
-                <span className="hidden md:inline">+421 123 456 789</span>
-                <span className="md:hidden">Podpora</span>
+                <span className="hidden md:inline">{tHeader('phone')}</span>
+                <span className="md:hidden">{tHeader('support')}</span>
               </div>
             </div>
             

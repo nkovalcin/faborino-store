@@ -8,6 +8,13 @@
     "about": "O nás",
     "contact": "Kontakt"
   },
+  "header": {
+    "shipping": "Doprava do SK/CZ/DE/FR",
+    "shippingShort": "Doprava EU",
+    "phone": "+421 123 456 789",
+    "support": "Podpora",
+    "advisor": "Poradca"
+  },
   "hero": {
     "title": "Montessori nábytok pre vaše deti",
     "subtitle": "Objavte náš výber vysokokvalitného detského nábytku inšpirovaného Montessori metódou",

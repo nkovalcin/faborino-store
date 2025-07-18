@@ -8,6 +8,13 @@
     "about": "À propos",
     "contact": "Contact"
   },
+  "header": {
+    "shipping": "Livraison vers SK/CZ/DE/FR",
+    "shippingShort": "Livraison UE",
+    "phone": "+421 123 456 789",
+    "support": "Support",
+    "advisor": "Conseiller"
+  },
   "hero": {
     "title": "Mobilier Montessori pour vos enfants",
     "subtitle": "Découvrez notre sélection de meubles pour enfants de haute qualité inspirés de la méthode Montessori",
