@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
 
     // Build query
-    let query = supabase
+    let query = supabaseServer
       .from('products')
       .select(`
         *,
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('products')
       .insert([product])
       .select()

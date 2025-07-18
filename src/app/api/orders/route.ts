@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
 
     // Build query
-    let query = supabase
+    let query = supabaseServer
       .from('orders')
       .select(`
         *,
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     const orderNumber = `FBR-${Date.now()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
 
     // Start transaction
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await supabaseServer
       .from('orders')
       .insert([{
         order_number: orderNumber,
@@ -128,14 +128,14 @@ export async function POST(request: NextRequest) {
       total: item.total
     }));
 
-    const { error: itemsError } = await supabase
+    const { error: itemsError } = await supabaseServer
       .from('order_items')
       .insert(orderItems);
 
     if (itemsError) {
       console.error('Error creating order items:', itemsError);
       // Rollback order creation
-      await supabase
+      await supabaseServer
         .from('orders')
         .delete()
         .eq('id', order.id);
@@ -148,10 +148,10 @@ export async function POST(request: NextRequest) {
 
     // Update product inventory
     for (const item of orderData.items) {
-      const { error: inventoryError } = await supabase
+      const { error: inventoryError } = await supabaseServer
         .from('products')
         .update({
-          inventory_quantity: supabase.raw('inventory_quantity - ?', [item.quantity])
+          inventory_quantity: supabaseServer.raw('inventory_quantity - ?', [item.quantity])
         })
         .eq('id', item.product_id);
 
@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch complete order with items
-    const { data: completeOrder } = await supabase
+    const { data: completeOrder } = await supabaseServer
       .from('orders')
       .select(`
         *,

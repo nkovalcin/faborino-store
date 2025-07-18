@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase';
 
 export async function GET(request: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Build search query
-    let searchQuery = supabase
+    let searchQuery = supabaseServer
       .from('products')
       .select(`
         id,
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Also search in categories
-    const { data: categories } = await supabase
+    const { data: categories } = await supabaseServer
       .from('categories')
       .select('id, name, slug, description')
       .eq('is_active', true)
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Build advanced search query
-    let searchQuery = supabase
+    let searchQuery = supabaseServer
       .from('products')
       .select(`
         id,

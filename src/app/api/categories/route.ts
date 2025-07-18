@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const includeProducts = searchParams.get('includeProducts') === 'true';
 
     // Build query
-    let query = supabase
+    let query = supabaseServer
       .from('categories')
       .select('*')
       .eq('is_active', true)
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     if (includeProducts && categories) {
       const categoriesWithCounts = await Promise.all(
         categories.map(async (category) => {
-          const { count } = await supabase
+          const { count } = await supabaseServer
             .from('products')
             .select('*', { count: 'exact', head: true })
             .eq('category_id', category.id)
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('categories')
       .insert([category])
       .select()

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase';
 
 export async function GET(
   request: NextRequest,
@@ -8,7 +8,7 @@ export async function GET(
   try {
     const { orderId } = params;
 
-    const { data: order, error } = await supabase
+    const { data: order, error } = await supabaseServer
       .from('orders')
       .select(`
         *,
@@ -70,7 +70,7 @@ export async function PUT(
     // Add updated_at timestamp
     updates.updated_at = new Date().toISOString();
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('orders')
       .update(updates)
       .eq('id', orderId)
@@ -104,7 +104,7 @@ export async function DELETE(
     const { orderId } = params;
 
     // Update order status to cancelled instead of deleting
-    const { error } = await supabase
+    const { error } = await supabaseServer
       .from('orders')
       .update({ 
         status: 'cancelled',

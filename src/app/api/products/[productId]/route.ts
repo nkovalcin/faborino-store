@@ -84,7 +84,7 @@ export async function PUT(
     // Add updated_at timestamp
     updates.updated_at = new Date().toISOString();
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('products')
       .update(updates)
       .eq('id', productId)
@@ -118,7 +118,7 @@ export async function DELETE(
     const { productId } = params;
 
     // Soft delete - set is_active to false
-    const { error } = await supabase
+    const { error } = await supabaseServer
       .from('products')
       .update({ 
         is_active: false, 
